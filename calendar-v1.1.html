@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>JavaScript Dynamic Calendar V1.1</title>
+		<meta charset="utf-8" />
+
+		<style>
+			body {
+				font-family: Helvetica;
+			}
+
+			input[type="text"] {
+				border: 0;
+				text-align: center;
+				width: 30px;
+			}
+		</style>
+	</head>
+
+	<body onload="setInitState()">
+		<h3>JavaScript Dynamic Calendar V1.1</h3>
+
+		<ul>
+			<li>Displays the days of the week for the selected month and year</li>
+			<li>On load, initializes the calendar to the current month and year</li>
+			<li>Utilizes a streamlined method of determining the number of days</li> 
+		</ul>
+
+		<table>
+			<tr>
+				<td>
+					<select id="monthSelect" onchange="createCalendar()">
+						<option value="0">January</option>
+						<option value="1">February</option>
+						<option value="2">March</option>
+						<option value="3">April</option>
+						<option value="4">May</option>
+						<option value="5">June</option>
+						<option value="6">July</option>
+						<option value="7">August</option>
+						<option value="8">September</option>
+						<option value="9">October</option>
+						<option value="10">November</option>
+						<option value="11">December</option>
+					</select>
+				</td>
+				<td>
+					<input type="number" min="1970" max="2014" step="1" id="yearStepper" onchange="createCalendar()" />
+				</td>
+			</tr>
+		</table>
+
+		<p></p>
+
+		<table>
+			<thead>
+				<th>Su</th>
+				<th>M</th>
+				<th>Tu</th>
+				<th>W</th>
+				<th>Th</th>
+				<th>F</th>
+				<th>Sa</th>
+			</thead>
+
+			<tbody>
+				<tr>
+					<td><input type="text" disabled="disabled" id="date0" /></td>
+					<td><input type="text" disabled="disabled" id="date1" /></td>
+					<td><input type="text" disabled="disabled" id="date2" /></td>
+					<td><input type="text" disabled="disabled" id="date3" /></td>
+					<td><input type="text" disabled="disabled" id="date4" /></td>
+					<td><input type="text" disabled="disabled" id="date5" /></td>
+					<td><input type="text" disabled="disabled" id="date6" /></td>
+				</tr>
+
+				<tr>
+					<td><input type="text" disabled="disabled" id="date7" /></td>
+					<td><input type="text" disabled="disabled" id="date8" /></td>
+					<td><input type="text" disabled="disabled" id="date9" /></td>
+					<td><input type="text" disabled="disabled" id="date10" /></td>
+					<td><input type="text" disabled="disabled" id="date11" /></td>
+					<td><input type="text" disabled="disabled" id="date12" /></td>
+					<td><input type="text" disabled="disabled" id="date13" /></td>
+				</tr>
+
+				<tr>
+					<td><input type="text" disabled="disabled" id="date14" /></td>
+					<td><input type="text" disabled="disabled" id="date15" /></td>
+					<td><input type="text" disabled="disabled" id="date16" /></td>
+					<td><input type="text" disabled="disabled" id="date17" /></td>
+					<td><input type="text" disabled="disabled" id="date18" /></td>
+					<td><input type="text" disabled="disabled" id="date19" /></td>
+					<td><input type="text" disabled="disabled" id="date20" /></td>
+				</tr>
+
+				<tr>
+					<td><input type="text" disabled="disabled" id="date21" /></td>
+					<td><input type="text" disabled="disabled" id="date22" /></td>
+					<td><input type="text" disabled="disabled" id="date23" /></td>
+					<td><input type="text" disabled="disabled" id="date24" /></td>
+					<td><input type="text" disabled="disabled" id="date25" /></td>
+					<td><input type="text" disabled="disabled" id="date26" /></td>
+					<td><input type="text" disabled="disabled" id="date27" /></td>
+				</tr>
+
+				<tr>
+					<td><input type="text" disabled="disabled" id="date28" /></td>
+					<td><input type="text" disabled="disabled" id="date29" /></td>
+					<td><input type="text" disabled="disabled" id="date30" /></td>
+					<td><input type="text" disabled="disabled" id="date31" /></td>
+					<td><input type="text" disabled="disabled" id="date32" /></td>
+					<td><input type="text" disabled="disabled" id="date33" /></td>
+					<td><input type="text" disabled="disabled" id="date34" /></td>
+				</tr>
+
+				<tr>
+					<td><input type="text" disabled="disabled" id="date35" /></td>
+					<td><input type="text" disabled="disabled" id="date36" /></td>
+					<td><input type="text" disabled="disabled" id="date37" /></td>
+					<td><input type="text" disabled="disabled" id="date38" /></td>
+					<td><input type="text" disabled="disabled" id="date39" /></td>
+					<td><input type="text" disabled="disabled" id="date40" /></td>
+					<td><input type="text" disabled="disabled" id="date41" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+		<script type="text/javascript">
+			function resetFields ( fieldCount ) {
+				var field;
+
+				for ( var count = 0; count <= fieldCount; count++ ) {
+					document.getElementById( "date" + count ).value = "";
+				}
+			}
+
+			function createCalendar () {
+				var month = parseFloat( document.getElementById( "monthSelect" ).value );
+				var year = parseFloat( document.getElementById( "yearStepper" ).value );
+				var date = new Date( year, month );
+
+				var startIndex = date.getDay();
+				var count = 0;
+
+				var daysInMonth;
+
+				resetFields( 41 );
+				daysInMonth = new Date( year, month + 1, 0 ).getDate();
+
+				while ( count < daysInMonth ) {
+					document.getElementById( "date" + startIndex ).value = count + 1;
+
+					startIndex++;
+					count++;
+				}
+			}
+
+			function setInitState () {
+				var currentDate = new Date();
+
+				document.getElementById( "monthSelect" ).value = currentDate.getMonth();
+				document.getElementById( "yearStepper" ).value = currentDate.getFullYear();
+
+				createCalendar();
+			}
+		</script>
+	</body>
+</html>
